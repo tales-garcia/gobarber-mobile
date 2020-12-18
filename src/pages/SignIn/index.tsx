@@ -30,7 +30,7 @@ const SignIn: React.FC = () => {
                         </View>
 
                         <Formik
-                            initialValues={{ email: 'jjijji', password: '' }}
+                            initialValues={{ email: '', password: '' }}
                             onSubmit={console.log}
                         >
                             {({ handleSubmit }) => (
