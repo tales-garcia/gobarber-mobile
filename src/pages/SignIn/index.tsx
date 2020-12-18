@@ -14,25 +14,30 @@ const SignIn: React.FC = () => {
                 behavior={Platform.OS === 'ios' ? 'padding' : undefined}
                 enabled
             >
-                <Container>
-                    <Image source={logo} />
+                <ScrollView
+                    keyboardShouldPersistTaps="handled"
+                    contentContainerStyle={{ flex: 1 }}
+                >
+                    <Container>
+                        <Image source={logo} />
 
-                    <View>
-                        <Title>Faça seu logon</Title>
-                    </View>
+                        <View>
+                            <Title>Faça seu logon</Title>
+                        </View>
 
-                    <Input name="email" icon="mail" placeholder="E-mail" />
-                    <Input name="password" icon="lock" placeholder="Senha" />
+                        <Input name="email" icon="mail" placeholder="E-mail" />
+                        <Input name="password" icon="lock" placeholder="Senha" />
 
-                    <Button>Entrar</Button>
+                        <Button>Entrar</Button>
 
-                    <ForgotPassword>
-                        <ForgotPasswordText>
-                            Esqueci minha senha
-                        </ForgotPasswordText>
-                    </ForgotPassword>
+                        <ForgotPassword>
+                            <ForgotPasswordText>
+                                Esqueci minha senha
+                            </ForgotPasswordText>
+                        </ForgotPassword>
 
-                </Container>
+                    </Container>
+                </ScrollView>
             </KeyboardAvoidingView>
             <NewAccount>
                 <Icon color="#ff9000" size={20} name="log-in" />
