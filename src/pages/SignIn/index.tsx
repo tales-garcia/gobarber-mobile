@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { Image, KeyboardAvoidingView, Platform, ScrollView, View } from 'react-native';
 import { Container, ForgotPassword, ForgotPasswordText, NewAccount, NewAccountText, Title } from './styles';
 import logo from '../../assets/images/logo.png';
@@ -8,8 +8,13 @@ import Icon from 'react-native-vector-icons/Feather';
 import { useNavigation } from '@react-navigation/native';
 import { Formik } from 'formik';
 
+interface PasswordRefProps {
+    focus(): void;
+}
+
 const SignIn: React.FC = () => {
     const { navigate } = useNavigation();
+    const passwordInputRef = useRef<PasswordRefProps>(null);
 
     return (
         <>
@@ -42,12 +47,17 @@ const SignIn: React.FC = () => {
                                         autoCapitalize="none"
                                         autoCorrect={false}
                                         keyboardType="email-address"
+                                        returnKeyType="next"
+                                        onSubmitEditing={() => passwordInputRef.current?.focus()}
                                     />
                                     <Input
+                                        ref={passwordInputRef}
                                         name="password"
                                         icon="lock"
                                         placeholder="Senha"
                                         secureTextEntry={true}
+                                        returnKeyType="send"
+                                        onSubmitEditing={handleSubmit}
                                     />
 
                                     <Button onPress={() => handleSubmit()}>Entrar</Button>

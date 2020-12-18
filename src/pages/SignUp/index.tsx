@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { Image, KeyboardAvoidingView, Platform, ScrollView, View } from 'react-native';
 import { Container, BackToSignIn, BackToSignInText, Title } from './styles';
 import logo from '../../assets/images/logo.png';
@@ -8,8 +8,14 @@ import Icon from 'react-native-vector-icons/Feather';
 import { useNavigation } from '@react-navigation/native';
 import { Formik } from 'formik';
 
+interface RefProps {
+    focus(): void;
+}
+
 const SignUp: React.FC = () => {
     const { goBack } = useNavigation();
+    const emailRef = useRef<RefProps>(null);
+    const passwordRef = useRef<RefProps>(null);
 
     return (
         <>
@@ -39,20 +45,28 @@ const SignUp: React.FC = () => {
                                         name="name"
                                         icon="user"
                                         placeholder="Nome"
+                                        returnKeyType="next"
+                                        onSubmitEditing={() => emailRef.current?.focus()}
                                     />
                                     <Input
+                                        ref={emailRef}
                                         name="email"
                                         icon="mail"
                                         placeholder="E-mail"
                                         autoCapitalize="none"
                                         autoCorrect={false}
                                         keyboardType="email-address"
+                                        returnKeyType="next"
+                                        onSubmitEditing={() => passwordRef.current?.focus()}
                                     />
                                     <Input
+                                        ref={passwordRef}
                                         name="password"
                                         icon="lock"
                                         placeholder="Senha"
                                         secureTextEntry={true}
+                                        returnKeyType="send"
+                                        onSubmitEditing={handleSubmit}
                                     />
 
                                     <Button onPress={() => handleSubmit()}>Cadastrar</Button>
