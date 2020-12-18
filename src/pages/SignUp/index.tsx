@@ -6,6 +6,7 @@ import Input from '../../components/Input';
 import Button from '../../components/Button';
 import Icon from 'react-native-vector-icons/Feather';
 import { useNavigation } from '@react-navigation/native';
+import { Formik } from 'formik';
 
 const SignUp: React.FC = () => {
     const { goBack } = useNavigation();
@@ -28,11 +29,20 @@ const SignUp: React.FC = () => {
                             <Title>Crie sua conta</Title>
                         </View>
 
-                        <Input name="name" icon="user" placeholder="Nome" />
-                        <Input name="email" icon="mail" placeholder="E-mail" />
-                        <Input name="password" icon="lock" placeholder="Senha" />
+                        <Formik
+                            initialValues={{ email: '', password: '' }}
+                            onSubmit={console.log}
+                        >
+                            {({ handleSubmit }) => (
+                                <>
+                                    <Input name="name" icon="user" placeholder="Nome" />
+                                    <Input name="email" icon="mail" placeholder="E-mail" />
+                                    <Input name="password" icon="lock" placeholder="Senha" />
 
-                        <Button>Cadastrar</Button>
+                                    <Button onPress={() => handleSubmit()}>Cadastrar</Button>
+                                </>
+                            )}
+                        </Formik>
 
                     </Container>
                 </ScrollView>
