@@ -35,8 +35,20 @@ const SignIn: React.FC = () => {
                         >
                             {({ handleSubmit }) => (
                                 <>
-                                    <Input name="email" icon="mail" placeholder="E-mail" />
-                                    <Input name="password" icon="lock" placeholder="Senha" />
+                                    <Input
+                                        name="email"
+                                        icon="mail"
+                                        placeholder="E-mail"
+                                        autoCapitalize="none"
+                                        autoCorrect={false}
+                                        keyboardType="email-address"
+                                    />
+                                    <Input
+                                        name="password"
+                                        icon="lock"
+                                        placeholder="Senha"
+                                        secureTextEntry={true}
+                                    />
 
                                     <Button onPress={() => handleSubmit()}>Entrar</Button>
                                 </>

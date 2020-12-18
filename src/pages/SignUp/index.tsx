@@ -35,9 +35,25 @@ const SignUp: React.FC = () => {
                         >
                             {({ handleSubmit }) => (
                                 <>
-                                    <Input name="name" icon="user" placeholder="Nome" />
-                                    <Input name="email" icon="mail" placeholder="E-mail" />
-                                    <Input name="password" icon="lock" placeholder="Senha" />
+                                    <Input
+                                        name="name"
+                                        icon="user"
+                                        placeholder="Nome"
+                                    />
+                                    <Input
+                                        name="email"
+                                        icon="mail"
+                                        placeholder="E-mail"
+                                        autoCapitalize="none"
+                                        autoCorrect={false}
+                                        keyboardType="email-address"
+                                    />
+                                    <Input
+                                        name="password"
+                                        icon="lock"
+                                        placeholder="Senha"
+                                        secureTextEntry={true}
+                                    />
 
                                     <Button onPress={() => handleSubmit()}>Cadastrar</Button>
                                 </>
