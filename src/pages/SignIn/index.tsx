@@ -1,21 +1,41 @@
 import React from 'react';
-import { Image } from 'react-native';
-import { Container, Title } from './styles';
+import { Image, KeyboardAvoidingView, Platform, ScrollView, View } from 'react-native';
+import { Container, ForgotPassword, ForgotPasswordText, NewAccount, NewAccountText, Title } from './styles';
 import logo from '../../assets/images/logo.png';
 import Input from '../../components/Input';
 import Button from '../../components/Button';
+import Icon from 'react-native-vector-icons/Feather';
 
 const SignIn: React.FC = () => {
     return (
-        <Container>
-            <Image source={logo} />
-            <Title>Faça seu logon</Title>
+        <>
+            <Container>
+                <Image source={logo} />
 
-            <Input name="email" icon="mail" placeholder="E-mail" />
-            <Input name="password" icon="lock" placeholder="Senha" />
+                <View>
+                    <Title>Faça seu logon</Title>
+                </View>
 
-            <Button>Entrar</Button>
-        </Container>
+                <Input name="email" icon="mail" placeholder="E-mail" />
+                <Input name="password" icon="lock" placeholder="Senha" />
+
+                <Button>Entrar</Button>
+
+                <ForgotPassword>
+                    <ForgotPasswordText>
+                        Esqueci minha senha
+                    </ForgotPasswordText>
+                </ForgotPassword>
+
+            </Container>
+
+            <NewAccount>
+                <Icon color="#ff9000" size={20} name="log-in" />
+                <NewAccountText>
+                    Criar conta
+                </NewAccountText>
+            </NewAccount>
+        </>
     );
 }
 
