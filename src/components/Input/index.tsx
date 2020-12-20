@@ -1,8 +1,8 @@
 import { useField } from 'formik';
-import React, { forwardRef, MutableRefObject, useCallback, useState } from 'react';
-import { TextInputProps } from 'react-native';
+import React, { forwardRef, MutableRefObject, useCallback, useEffect, useState } from 'react';
+import { Alert, TextInputProps } from 'react-native';
 import { TextInput as OriginalTextInput } from 'react-native';
-import { Container, TextInput, Icon } from './styles';
+import { Container, TextInput, Icon, Error } from './styles';
 
 interface InputProps extends TextInputProps {
     name: string;
@@ -17,11 +17,15 @@ const Input: React.ForwardRefRenderFunction<RefProps, InputProps> = ({ name, ico
     const [isFocused, setIsFocused] = useState(false);
     const [isFilled, setIsFilled] = useState(false);
 
-    const [{ onBlur, onChange, value }] = useField(name);
-
+    const [{ onBlur, onChange, value }, { error }] = useField(name);
+    
     return (
-        <Container isFocused={isFocused}>
-            <Icon name={icon} size={20} color={(isFilled || isFocused) ? '#ff9000' : '#666360'} />
+        <Container isFocused={isFocused} hasError={!!error}>
+            <Icon name={icon} size={20} color={useCallback((() => {
+                if (error) return '#c53030';
+
+                return (isFilled || isFocused) ? '#ff9000' : '#666360';
+            }), [error, isFilled, isFocused])()} />
             <TextInput
                 ref={ref as MutableRefObject<OriginalTextInput>}
                 keyboardAppearance="dark"
@@ -39,6 +43,7 @@ const Input: React.ForwardRefRenderFunction<RefProps, InputProps> = ({ name, ico
                     setIsFocused(true);
                 }, [])}
             />
+            {error && <Error>{error}</Error>}
         </Container>
     );
 }
