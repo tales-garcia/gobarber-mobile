@@ -15,7 +15,7 @@ interface PasswordRefProps {
 
 const signInShape = Yup.object().shape({
     email: Yup.string().email('Digite um Email válido').required('Email obrigatório'),
-    password: Yup.string().min(5, 'Mínimo de 5 caracteres').required('Senha obrigatório')
+    password: Yup.string().min(5, 'Mínimo de 5 caracteres').required('Senha obrigatória')
 });
 
 const SignIn: React.FC = () => {
