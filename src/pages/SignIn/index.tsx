@@ -1,4 +1,4 @@
-import React, { useRef } from 'react';
+import React, { useCallback, useRef } from 'react';
 import { Image, KeyboardAvoidingView, Platform, ScrollView, View } from 'react-native';
 import { Container, ForgotPassword, ForgotPasswordText, NewAccount, NewAccountText, Title } from './styles';
 import logo from '../../assets/images/logo.png';
@@ -6,8 +6,9 @@ import Input from '../../components/Input';
 import Button from '../../components/Button';
 import Icon from 'react-native-vector-icons/Feather';
 import { useNavigation } from '@react-navigation/native';
-import { Formik } from 'formik';
+import { Formik, FormikProps } from 'formik';
 import * as Yup from 'yup';
+import { useAuth } from '../../hooks/auth';
 
 interface PasswordRefProps {
     focus(): void;
@@ -21,6 +22,30 @@ const signInShape = Yup.object().shape({
 const SignIn: React.FC = () => {
     const { navigate } = useNavigation();
     const passwordInputRef = useRef<PasswordRefProps>(null);
+    const formRef = useRef<FormikProps<{}>>(null);
+
+    const { signIn, user } = useAuth();
+
+    console.log(user)
+
+    const handleSubmit = useCallback(async values => {
+        try {
+            await signIn(values);
+        } catch (e) {
+            if(e.response) {
+                switch(e.response.status) {
+                    case 404: {
+                        formRef.current?.setErrors({ email: 'Usuário inexistente' });
+                        break;
+                    }
+                    case 401: {
+                        formRef.current?.setErrors({ password: 'Senha incorreta' });
+                        break;
+                    }
+                }
+            }
+        }
+    }, []);
 
     return (
         <>
@@ -43,7 +68,8 @@ const SignIn: React.FC = () => {
                         <Formik
                             initialValues={{ email: '', password: '' }}
                             validationSchema={signInShape}
-                            onSubmit={console.log}
+                            onSubmit={handleSubmit}
+                            innerRef={formRef}
                         >
                             {({ handleSubmit }) => (
                                 <>
