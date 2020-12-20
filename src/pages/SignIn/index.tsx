@@ -7,10 +7,16 @@ import Button from '../../components/Button';
 import Icon from 'react-native-vector-icons/Feather';
 import { useNavigation } from '@react-navigation/native';
 import { Formik } from 'formik';
+import * as Yup from 'yup';
 
 interface PasswordRefProps {
     focus(): void;
 }
+
+const signInShape = Yup.object().shape({
+    email: Yup.string().email('Digite um Email válido').required('Email obrigatório'),
+    password: Yup.string().min(5, 'Mínimo de 5 caracteres').required('Senha obrigatório')
+});
 
 const SignIn: React.FC = () => {
     const { navigate } = useNavigation();
@@ -36,6 +42,7 @@ const SignIn: React.FC = () => {
 
                         <Formik
                             initialValues={{ email: '', password: '' }}
+                            validationSchema={signInShape}
                             onSubmit={console.log}
                         >
                             {({ handleSubmit }) => (
