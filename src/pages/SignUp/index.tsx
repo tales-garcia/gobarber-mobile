@@ -1,13 +1,14 @@
-import React, { useRef } from 'react';
-import { Image, KeyboardAvoidingView, Platform, ScrollView, View } from 'react-native';
+import React, { useCallback, useRef } from 'react';
+import { Alert, Image, KeyboardAvoidingView, Platform, ScrollView, View } from 'react-native';
 import { Container, BackToSignIn, BackToSignInText, Title } from './styles';
 import logo from '../../assets/images/logo.png';
 import Input from '../../components/Input';
 import Button from '../../components/Button';
 import Icon from 'react-native-vector-icons/Feather';
 import { useNavigation } from '@react-navigation/native';
-import { Formik } from 'formik';
+import { Formik, FormikProps } from 'formik';
 import * as Yup from 'yup';
+import api from '../../services/api';
 
 interface RefProps {
     focus(): void;
@@ -23,6 +24,25 @@ const SignUp: React.FC = () => {
     const { goBack } = useNavigation();
     const emailRef = useRef<RefProps>(null);
     const passwordRef = useRef<RefProps>(null);
+    const formRef = useRef<FormikProps<{}>>(null);
+
+    const handleSubmit = useCallback(async values => {
+        try {
+            await api.post('users', values);
+
+            Alert.alert('Cadastro realizado com sucesso!', 'Você já pode realizar seu logon na plataforma')
+
+            goBack();
+        } catch(e) {
+            if(e.response) {
+                switch(e.response.status) {
+                    case 400:
+                        formRef.current?.setErrors({ email: 'Email já usado' });
+                        break;
+                }
+            }
+        }
+    }, []);
 
     return (
         <>
@@ -44,8 +64,9 @@ const SignUp: React.FC = () => {
 
                         <Formik
                             initialValues={{ email: '', password: '' }}
-                            onSubmit={console.log}
+                            onSubmit={handleSubmit}
                             validationSchema={signUpValidation}
+                            innerRef={formRef}
                         >
                             {({ handleSubmit }) => (
                                 <>
