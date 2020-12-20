@@ -7,10 +7,17 @@ import Button from '../../components/Button';
 import Icon from 'react-native-vector-icons/Feather';
 import { useNavigation } from '@react-navigation/native';
 import { Formik } from 'formik';
+import * as Yup from 'yup';
 
 interface RefProps {
     focus(): void;
 }
+
+const signUpValidation = Yup.object().shape({
+    name: Yup.string().required('Nome obrigatório'),
+    email: Yup.string().email('Digite um Email válido').required('Email obrigatório'),
+    password: Yup.string().min(5, 'Mínimo de 5 caracteres').required('Senha obrigatória')
+});
 
 const SignUp: React.FC = () => {
     const { goBack } = useNavigation();
@@ -38,6 +45,7 @@ const SignUp: React.FC = () => {
                         <Formik
                             initialValues={{ email: '', password: '' }}
                             onSubmit={console.log}
+                            validationSchema={signUpValidation}
                         >
                             {({ handleSubmit }) => (
                                 <>
