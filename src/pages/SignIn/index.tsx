@@ -24,9 +24,7 @@ const SignIn: React.FC = () => {
     const passwordInputRef = useRef<PasswordRefProps>(null);
     const formRef = useRef<FormikProps<{}>>(null);
 
-    const { signIn, user } = useAuth();
-
-    console.log(user)
+    const { signIn } = useAuth();
 
     const handleSubmit = useCallback(async values => {
         try {
