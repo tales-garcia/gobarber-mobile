@@ -1,6 +1,6 @@
 import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
-import { View } from 'react-native';
+import Dashboard from '../pages/Dashboard';
 
 const AppNavigation = createStackNavigator();
 
@@ -15,7 +15,7 @@ const AppRoutes: React.FC = () => {
                 }
             }}
         >
-            <AppNavigation.Screen name="SignIn" component={View} />
+            <AppNavigation.Screen name="Dashboard" component={Dashboard} />
         </AppNavigation.Navigator>
     );
 }
