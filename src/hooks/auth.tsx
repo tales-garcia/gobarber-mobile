@@ -3,6 +3,10 @@ import { createContext } from "react";
 import storage from '@react-native-community/async-storage';
 import api from '../services/api';
 
+interface IUser {
+    name: string;
+    avatarUrl: string;
+}
 
 interface SignInCredentials {
     email: string;
@@ -11,11 +15,11 @@ interface SignInCredentials {
 
 interface AuthState {
     token: string;
-    user: object;
+    user: IUser;
 }
 
 interface AuthContextData {
-    user: object;
+    user: IUser;
     loading: boolean;
     signIn(credentials: SignInCredentials): Promise<void>;
     signOut(): void;
@@ -40,7 +44,7 @@ export const AuthProvider: React.FC = ({ children }) => {
             const [[, user], [, token]] = await storage.multiGet(['user', 'token']);
 
             if (user && token) {
-                const parsedUser = JSON.parse(user) as object;
+                const parsedUser = JSON.parse(user) as IUser;
     
                 setData({ user: parsedUser, token });
             }
