@@ -4,7 +4,7 @@ import { useAuth } from '../../hooks/auth';
 import { Container, Header, HeaderTitle, UserName, ProfileButton, Avatar } from './styles';
 
 const Dashboard: React.FC = () => {
-    const { signOut, user } = useAuth();
+    const { user } = useAuth();
     const { navigate } = useNavigation();
 
     const navigateToProfile = useCallback(() => {
