@@ -45,6 +45,8 @@ export const AuthProvider: React.FC = ({ children }) => {
 
             if (user && token) {
                 const parsedUser = JSON.parse(user) as IUser;
+
+                api.defaults.headers.authorization = `Bearer ${token}`;
     
                 setData({ user: parsedUser, token });
             }
@@ -61,6 +63,8 @@ export const AuthProvider: React.FC = ({ children }) => {
 
         const { user, token } = res.data;
 
+        api.defaults.headers.authorization = `Bearer ${token}`;
+
         await storage.multiSet([['token', token], ['user', JSON.stringify(user)]]);
 
         setData({ user, token });
@@ -68,6 +72,8 @@ export const AuthProvider: React.FC = ({ children }) => {
 
     const signOut = useCallback(async () => {
         await storage.multiRemove(['token', 'user']);
+
+        api.defaults.headers.authorization = undefined;
 
         setData({} as AuthState);
     }, []);
