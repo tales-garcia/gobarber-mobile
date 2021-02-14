@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { Icon } from 'react-native-vector-icons/Icon';
 import { useAuth } from '../../hooks/auth';
 import api from '../../services/api';
+import DateTimePicker from '@react-native-community/datetimepicker';
 import {
     Container,
     Header,
@@ -12,8 +13,13 @@ import {
     ProvidersList,
     ProviderContainer,
     PoviderAvatar,
-    ProviderName
+    ProviderName,
+    Calendar,
+    Title,
+    ShowDatePickerButton,
+    ShowDatePickerButtonText
 } from './styles';
+import { Platform } from 'react-native';
 
 export interface IProvider {
     name: string;
@@ -21,8 +27,14 @@ export interface IProvider {
     _id: string;
 }
 
+type DatePickerFromOS = {
+    [key in typeof Platform.OS]: any;
+};
+
 const CreateAppointment: React.FC = () => {
     const [providers, setProviders] = useState<IProvider[]>([]);
+    const [showDatePicker, setShowDatePicker] = useState(false);
+    const [selectedDate, setSelectedDate] = useState(new Date());
 
     const { user } = useAuth();
     const { providerId } = useRoute().params as { providerId: string; };
@@ -37,6 +49,45 @@ const CreateAppointment: React.FC = () => {
     const handleSelectProvider = React.useCallback((id: string) => {
         setSelectedProviderId(id);
     }, []);
+
+    const handleToggleDatePicker = React.useCallback(() => {
+        setShowDatePicker(previousState => !previousState);
+    }, []);
+
+    const handleDateChange = React.useCallback((_: Event, date?: Date) => {
+        setSelectedDate(date!);
+    }, []);
+
+    const defaultDateTimePickerProps = React.useMemo(() => ({
+        mode: 'date',
+        onChange: handleDateChange,
+        value: selectedDate
+    }), []);
+
+    const datePicker = React.useMemo<DatePickerFromOS>(() => ({
+        ios: (
+            <DateTimePicker
+                {...defaultDateTimePickerProps}
+                textColor="#f4ede8"
+            />
+        ),
+        android: (
+            <>
+                <ShowDatePickerButton onPress={handleToggleDatePicker}>
+                    <ShowDatePickerButtonText>Selecionar outra data</ShowDatePickerButtonText>
+                </ShowDatePickerButton>
+                {showDatePicker && (
+                    <DateTimePicker
+                        {...defaultDateTimePickerProps}
+                        display="calendar"
+                    />
+                )}
+            </>
+        ),
+        windows: '',
+        macos: '',
+        web: ''
+    }), [showDatePicker, handleToggleDatePicker]);
 
     return (
         <Container>
@@ -67,6 +118,12 @@ const CreateAppointment: React.FC = () => {
                     </ProviderContainer>
                 )}
             />
+            
+
+            <Calendar>
+                <Title>Escolha a data</Title>
+                {datePicker[Platform.OS]}
+            </Calendar>
         </Container>
     );
 }
