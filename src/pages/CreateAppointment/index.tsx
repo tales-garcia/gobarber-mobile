@@ -23,9 +23,11 @@ import {
     SectionContent,
     Hour,
     HourText,
-    Schedule
+    Schedule,
+    CreateAppointmentButton,
+    CreateAppointmentButtonText
 } from './styles';
-import { Platform, ScrollView } from 'react-native';
+import { Platform, ScrollView, Alert } from 'react-native';
 import { format } from 'date-fns';
 
 export interface IProvider {
@@ -49,6 +51,7 @@ const CreateAppointment: React.FC = () => {
     const [selectedDate, setSelectedDate] = useState(new Date());
     const [dayAvailability, setDayAvailability] = useState<IDayAvailability[]>([]);
     const [selectedHour, setSelectedHour] = useState(0);
+    const { navigate } = useNavigation();
 
     const { user } = useAuth();
     const { providerId } = useRoute().params as { providerId: string; };
@@ -124,6 +127,23 @@ const CreateAppointment: React.FC = () => {
         .map(availability => ({ ...availability, formattedHour: format(new Date().setHours(availability.hour), "HH':'mm") })) as any as (IDayAvailability & { formattedHour: string })[]
     , [dayAvailability]);
 
+    const handleCreateAppointment = React.useCallback(async () => {
+        try {
+            const date = new Date(selectedDate);
+            date.setHours(selectedHour);
+            date.setMinutes(0);
+
+            await api.post('appointments', {
+                providerId: selectedProviderId,
+                date
+            });
+
+            navigate('AppointmentCreated', { date: date.getTime() });
+        } catch (err) {
+            Alert.alert('Erro ao criar agendamento', 'Tente novamente mais tarde');
+        }
+    }, [selectedDate, selectedHour, selectedProviderId, navigate, Alert]);
+
     return (
         <Container>
             <Header>
@@ -197,6 +217,9 @@ const CreateAppointment: React.FC = () => {
                         </SectionContent>
                     </Section>
                 </Schedule>
+                <CreateAppointmentButton onPress={handleCreateAppointment}>
+                    <CreateAppointmentButtonText>Agendar</CreateAppointmentButtonText>
+                </CreateAppointmentButton>
             </ScrollView>
         </Container>
     );
