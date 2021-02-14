@@ -1,5 +1,16 @@
+import { FlatList } from 'react-native';
+import { RectButton } from 'react-native-gesture-handler';
 import { getStatusBarHeight } from 'react-native-iphone-x-helper';
 import styled from 'styled-components/native';
+import { IProvider } from '.';
+
+interface ProviderContainerProps {
+    selected: boolean;
+}
+
+interface ProviderNameProps {
+    selected: boolean;
+}
 
 export const Container = styled.View`
     
@@ -28,4 +39,34 @@ export const Avatar = styled.Image`
     height: 56px;
     border-radius: 28px;
     margin-left: auto;
+`;
+
+export const ProvidersListContainer = styled.View`
+    height: 112px;
+`;
+
+export const ProvidersList = styled(FlatList as new () => FlatList<IProvider>)`
+    padding: 32px 24px;
+`;
+
+export const ProviderContainer = styled(RectButton)<ProviderContainerProps>`
+    background: ${({ selected }) => selected ? '#ff9000' : '#3e3b47'};
+    flex-direction: row;
+    align-items: center;
+    padding: 8px 12px;
+    margin-right: 16px;
+    border-radius: 10px;
+`;
+
+export const PoviderAvatar = styled.Image`
+    width: 32px;
+    height: 32px;
+    border-radius: 16px;
+`;
+
+export const ProviderName = styled.Text<ProviderNameProps>`
+    margin-left: 8px;
+    font-family: 'RobotoSlab-Medium';
+    font-size: 16px;
+    background: ${({ selected }) => selected ? '#232129' : '#f4ede8'};
 `;
