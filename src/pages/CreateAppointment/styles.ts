@@ -12,6 +12,15 @@ interface ProviderNameProps {
     selected: boolean;
 }
 
+interface IHourProps {
+    available: boolean;
+    selected: boolean;
+}
+
+interface IHourTextProps {
+    selected: boolean;
+}
+
 export const Container = styled.View`
     
 `;
@@ -95,4 +104,41 @@ export const ShowDatePickerButtonText = styled.Text`
     font-family: 'RobotoSlab-Medium';
     font-size: 16px;
     color: #232129;
+`;
+
+export const Schedule = styled.View`
+    padding: 24px 0 16px;
+`;
+
+export const Section = styled.View`
+    margin-bottom: 24px;
+`;
+
+export const SectionTitle = styled.Text`
+    font-size: 18px;
+    color: #999591;
+    font-family: 'RobotoSlab-Regular';
+    margin: 0 24px 12px;
+`;
+
+export const SectionContent = styled.ScrollView.attrs({
+    contentContainerStyle: { paddingHorizontal: 24 },
+    horizontal: true,
+    showsHorizontalScrollIndicator: false
+})``;
+
+export const Hour = styled(RectButton)<IHourProps>`
+    padding: 12px;
+    background: ${({ selected }) => selected ? '#ff9000' : '#3e3b47'};
+    border-radius: 10px;
+    margin-right: 8px;
+
+    opacity: ${({ available }) => available ? 0.4 : 1};
+
+`;
+
+export const HourText = styled.Text<IHourTextProps>`
+    font-family: 'RobotoSlab-Regular';
+    color: ${({ selected }) => selected ? '#232129' : '#f4ede8'};
+    font-size: 16px;
 `;
