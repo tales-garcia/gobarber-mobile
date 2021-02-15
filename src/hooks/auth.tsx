@@ -21,6 +21,7 @@ interface AuthState {
 interface AuthContextData {
     user: IUser;
     loading: boolean;
+    updateUser(user: Partial<IUser>): void;
     signIn(credentials: SignInCredentials): Promise<void>;
     signOut(): void;
 }
@@ -55,6 +56,22 @@ export const AuthProvider: React.FC = ({ children }) => {
         })();
     }, []);
 
+    const updateUser = useCallback(async (user: Partial<IUser>) => {
+
+        await storage.multiSet([['token', data.token], ['user', JSON.stringify({
+            ...data.user,
+            ...user
+        })]]);
+
+        setData(previousState => ({
+            token: previousState.token,
+            user: {
+                ...previousState.user,
+                ...user
+            }
+        }));
+    }, [setData, data]);
+
     const signIn = useCallback(async ({ email, password }: SignInCredentials) => {
         const res = await api.post('sessions', {
             email,
@@ -79,7 +96,7 @@ export const AuthProvider: React.FC = ({ children }) => {
     }, []);
 
     return (
-        <AuthContext.Provider value={{ user: data.user, signIn, signOut, loading }}>
+        <AuthContext.Provider value={{ user: data.user, updateUser, signIn, signOut, loading }}>
             { children}
         </AuthContext.Provider>
     );

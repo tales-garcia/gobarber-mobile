@@ -42,7 +42,7 @@ const ProfileValidation = Yup.object().shape({
 
 const Profile: React.FC = () => {
     const { goBack } = useNavigation();
-    const { user } = useAuth();
+    const { user, updateUser } = useAuth();
     const emailRef = useRef<RefProps>(null);
     const oldPasswordRef = useRef<RefProps>(null);
     const passwordRef = useRef<RefProps>(null);
@@ -59,9 +59,11 @@ const Profile: React.FC = () => {
                 return total;
             }, {} as any);
 
-            await api.patch('profile', filteredData);
+            const { data } = await api.put('profile', filteredData);
 
-            Alert.alert('Cadastro realizado com sucesso!', 'Você já pode realizar seu logon na plataforma')
+            updateUser(data);
+
+            Alert.alert('Perfil atualizado com sucesso!');
 
             goBack();
         } catch (e) {
