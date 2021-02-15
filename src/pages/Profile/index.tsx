@@ -7,6 +7,7 @@ import { useNavigation } from '@react-navigation/native';
 import { Formik, FormikProps } from 'formik';
 import * as Yup from 'yup';
 import api from '../../services/api';
+import ImagePicker from 'react-native-image-picker';
 import { useAuth } from '../../hooks/auth';
 import { Icon } from 'react-native-vector-icons/Icon';
 
@@ -77,6 +78,32 @@ const Profile: React.FC = () => {
         }
     }, []);
 
+    const handleAvatarUpdate = useCallback(() => {
+        ImagePicker.launchImageLibrary({
+            mediaType: 'photo'
+        }, response => {
+            if (response.didCancel) {
+                return;
+            }
+
+            if (response.errorCode) {
+                Alert.alert('Ocorreu um erro.', 'Não foi possível alterar seu avatar, tente novamente');
+                return;
+            }
+
+            const data = new FormData();
+
+            data.append('avatar', {
+                uri: response.uri,
+                type: 'image/jpeg',
+                name: `${user._id}.jpg`
+            });
+
+            api.patch('users/avatar', data).then(res => res.data).then(updateUser);
+
+        });
+    }, [ImagePicker]);
+
     return (
         <KeyboardAvoidingView
             style={{ flex: 1 }}
@@ -92,7 +119,7 @@ const Profile: React.FC = () => {
                         <Icon name="chevron-left" size={24} color="#999591" />
                     </BackButton>
 
-                    <UserAvatarButton>
+                    <UserAvatarButton onPress={handleAvatarUpdate}>
                         <UserAvatar source={{ uri: user.avatarUrl }} />
                     </UserAvatarButton>
 

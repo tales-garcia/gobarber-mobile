@@ -4,6 +4,7 @@ import storage from '@react-native-community/async-storage';
 import api from '../services/api';
 
 interface IUser {
+    _id: string;
     name: string;
     avatarUrl: string;
 }
