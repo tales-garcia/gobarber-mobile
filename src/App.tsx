@@ -5,8 +5,12 @@ import { StatusBar } from 'react-native';
 import Routes from './routes';
 import { NavigationContainer } from '@react-navigation/native';
 import AppProvider from './hooks';
+import SplashScreen from 'react-native-splash-screen';
 
 const App: React.FC = () => {
+    React.useEffect(() => {
+        SplashScreen.hide();
+    }, []);
     return (
         <NavigationContainer>
             <StatusBar barStyle="light-content" backgroundColor="#312e38" />
