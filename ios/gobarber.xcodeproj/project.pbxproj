@@ -58,12 +58,12 @@
 		2CD832E8DC22A07FE46A9726 /* Pods-gobarber-gobarberTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-gobarber-gobarberTests.release.xcconfig"; path = "Target Support Files/Pods-gobarber-gobarberTests/Pods-gobarber-gobarberTests.release.xcconfig"; sourceTree = "<group>"; };
 		2D02E47B1E0B4A5D006451C7 /* gobarber-tvOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "gobarber-tvOS.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		2D02E4901E0B4A5D006451C7 /* gobarber-tvOSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "gobarber-tvOSTests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
-		3DC199F0D38B48AC8BE9BEF2 /* RobotoSlab-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "RobotoSlab-Regular.ttf"; path = "../src/assets/fonts/RobotoSlab-Regular.ttf"; sourceTree = "<group>"; };
+		3DC199F0D38B48AC8BE9BEF2 /* RobotoSlab-Regular.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "RobotoSlab-Regular.ttf"; path = "../src/assets/fonts/RobotoSlab-Regular.ttf"; sourceTree = "<group>"; };
 		777FF5AFA19752E3EEAF725C /* libPods-gobarber-tvOSTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-gobarber-tvOSTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		77DC72CFA3D7AA8798341FE7 /* Pods-gobarber-gobarberTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-gobarber-gobarberTests.debug.xcconfig"; path = "Target Support Files/Pods-gobarber-gobarberTests/Pods-gobarber-gobarberTests.debug.xcconfig"; sourceTree = "<group>"; };
 		7AEFD6EBBCBF73E311184E7E /* Pods-gobarber.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-gobarber.debug.xcconfig"; path = "Target Support Files/Pods-gobarber/Pods-gobarber.debug.xcconfig"; sourceTree = "<group>"; };
 		81AB9BB72411601600AC10FF /* LaunchScreen.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = LaunchScreen.storyboard; path = gobarber/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		A995C6F9861B4476A3FFF333 /* RobotoSlab-Medium.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = undefined; includeInIndex = 0; lastKnownFileType = unknown; name = "RobotoSlab-Medium.ttf"; path = "../src/assets/fonts/RobotoSlab-Medium.ttf"; sourceTree = "<group>"; };
+		A995C6F9861B4476A3FFF333 /* RobotoSlab-Medium.ttf */ = {isa = PBXFileReference; explicitFileType = undefined; fileEncoding = 9; includeInIndex = 0; lastKnownFileType = unknown; name = "RobotoSlab-Medium.ttf"; path = "../src/assets/fonts/RobotoSlab-Medium.ttf"; sourceTree = "<group>"; };
 		AD5117217B5944DA54A224C6 /* libPods-gobarber-tvOS.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-gobarber-tvOS.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		B79374F3B66D64CD72DD2CAA /* libPods-gobarber-gobarberTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-gobarber-gobarberTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		D373F218A066F0285FC17252 /* libPods-gobarber.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-gobarber.a"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -160,7 +160,6 @@
 				3DC199F0D38B48AC8BE9BEF2 /* RobotoSlab-Regular.ttf */,
 			);
 			name = Resources;
-			path = "";
 			sourceTree = "<group>";
 		};
 		832341AE1AAA6A7D00B99B32 /* Libraries */ = {
@@ -933,7 +932,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.3;
 				LD_RUNPATH_SEARCH_PATHS = "/usr/lib/swift $(inherited)";
 				LIBRARY_SEARCH_PATHS = (
 					"\"$(TOOLCHAIN_DIR)/usr/lib/swift/$(PLATFORM_NAME)\"",
@@ -986,7 +985,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 14.3;
 				LD_RUNPATH_SEARCH_PATHS = "/usr/lib/swift $(inherited)";
 				LIBRARY_SEARCH_PATHS = (
 					"\"$(TOOLCHAIN_DIR)/usr/lib/swift/$(PLATFORM_NAME)\"",
