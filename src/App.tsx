@@ -6,6 +6,7 @@ import Routes from './routes';
 import { NavigationContainer } from '@react-navigation/native';
 import AppProvider from './hooks';
 import SplashScreen from 'react-native-splash-screen';
+import codePush from 'react-native-code-push';
 
 const App: React.FC = () => {
     React.useEffect(() => {
@@ -21,4 +22,6 @@ const App: React.FC = () => {
     );
 };
 
-export default App;
+export default codePush({
+    checkFrequency: codePush.CheckFrequency.ON_APP_START
+})(App);
