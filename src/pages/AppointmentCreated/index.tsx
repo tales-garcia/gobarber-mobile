@@ -2,7 +2,7 @@ import { useNavigation, useRoute } from '@react-navigation/native';
 import { format } from 'date-fns';
 import React from 'react';
 import ptBr from 'date-fns/locale/pt-BR';
-import { Icon } from 'react-native-vector-icons/Icon';
+import { Icon } from 'react-native-vector-icons';
 import {
     Container,
     Title,

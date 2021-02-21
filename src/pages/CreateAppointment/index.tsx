@@ -1,6 +1,6 @@
 import { useNavigation, useRoute } from '@react-navigation/native';
 import React, { useState } from 'react';
-import { Icon } from 'react-native-vector-icons/Icon';
+import { Icon } from 'react-native-vector-icons';
 import { useAuth } from '../../hooks/auth';
 import api from '../../services/api';
 import DateTimePicker from '@react-native-community/datetimepicker';

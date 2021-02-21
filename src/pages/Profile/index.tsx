@@ -9,7 +9,7 @@ import * as Yup from 'yup';
 import api from '../../services/api';
 import ImagePicker from 'react-native-image-picker';
 import { useAuth } from '../../hooks/auth';
-import { Icon } from 'react-native-vector-icons/Icon';
+import { Icon } from 'react-native-vector-icons';
 
 interface RefProps {
     focus(): void;
